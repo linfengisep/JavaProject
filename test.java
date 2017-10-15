@@ -25,3 +25,11 @@ public class test{
    }
 }
 **/
+
+public class test{
+   public static void main(String arg[])throws InterruptedException{
+      String sn="String_name";
+      String s=new String(sn);
+      System.out.println(s);
+   }
+}
