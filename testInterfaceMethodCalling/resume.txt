@@ -1,0 +1,2 @@
+when the class A variable is a another class B's instance.
+Then the instance of class A can get all the B's instance's variable.
