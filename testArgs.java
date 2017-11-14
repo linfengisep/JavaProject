@@ -1,4 +1,7 @@
+import java.util.Scanner;
+
 class testArgs {
+
    public static String myname="linfeng";
    public static String myNum="123456";
 
@@ -10,5 +13,9 @@ class testArgs {
    int stringToInteger=0;
    stringToInteger=Integer.parseInt(myNum);
    System.out.println("Your assumption->String to Integer is:"+stringToInteger);
+   System.out.println("*******************test scanner*******************");
+   Scanner sc = new Scanner(System.in);
+   String string = sc.nextLine();
+   System.out.println("You just input is: "+string);
    }
 }
