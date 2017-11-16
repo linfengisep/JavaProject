@@ -1,59 +1,63 @@
+package jdbcDataBase;
 
-package exercise24;
+public class DBColumn {
+	 private String colName;
+	    private SQLType sqlType;
+	    private boolean isNullable;
 
-public class DBColumn 
-{
-    private String name;
-    private String SQLType; 
-    private boolean isNullable;
-    
-    protected DBColumn(final String name, final String SQLType, final boolean isNullable)
-    {
-        this.name = name;
-        this.SQLType = SQLType;
-        this.isNullable = isNullable;
-    }
-    
-    enum SQLType {
-      CHAR,
-      VARCHAR,
-      NVARCHAR,
-      NCHAR,
-      NUMERIC, 
-      DOUBLE,
-      DATE,
-      TIMESTAMP
-    }
+	    //class constructor
+	    protected DBColumn(final String colName, final SQLType sqlType, final boolean isNullable)
+	    {
+	        this.colName = colName;
+	        this.sqlType = sqlType;
+	        this.isNullable = isNullable;
+	    }
+	    //basically, i want to create four many type:text, VARCHAR, DATE, INT;
+	    public enum SQLType {
+	      TEXT,
+	      
+	      CHAR,
+	      VARCHAR,
+	      
+	      NUMERIC,
+	      INTEGER,
+	      FLOAT,
+	      DOUBLE,
+	      REAL,
+	      
+	      DATE,
+	      TIMESTAMP
+	    }
 
-    public void setIsNullable(boolean isNullable) {
-        this.isNullable = isNullable;
-    }
+	    public boolean isIsNullable() {
+	        return isNullable;
+	    }
 
-    public boolean isIsNullable() {
-        return isNullable;
-    }
-    
-    public String getName() {
-        return name;
-    }
+	    public String getName() {
+	        return colName;
+	    }
 
-    public String getSQLType() {
-        return SQLType;
-    }
+	    public SQLType getSQLType() {
+	        return sqlType;
+	    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	    public void setIsNullable(boolean isNullable) {
+	        this.isNullable = isNullable;
+	   }
 
-    public void setSQLType(String SQLType) {
-        this.SQLType = SQLType;
-    }
-   
-    public String toSQL()
-    {
-        final StringBuffer sb = new StringBuffer();
-        sb.append(this.name + " " + this.SQLType);
-  
-        return sb.toString();
-    }
+	    public void setName(String colName) {
+	        this.colName = colName;
+	    }
+
+	    public void setSQLType(SQLType sqlType) {
+	        this.sqlType = sqlType;
+	    }
+
+	    public String toSQL()
+	    {
+	        final StringBuffer sb = new StringBuffer();
+	        sb.append("CREATE TABLE "+this.colName + "(" + this.sqlType+")");
+
+	        return sb.toString();
+	    }
 }

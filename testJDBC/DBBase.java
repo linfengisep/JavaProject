@@ -1,4 +1,4 @@
-package exercise24;
+package jdbcDataBase;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -20,6 +20,7 @@ public class DBBase
         for (DBTable table : tables)
         {
             sb.append(table.toSQL());
+            //table belongs to the instances of DBTables thus, table.toSQL(), calls the BDTable instances' method;
         }
         return sb.toString();
     }
