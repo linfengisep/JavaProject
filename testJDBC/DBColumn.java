@@ -1,18 +1,19 @@
 package jdbcDataBase;
 
 public class DBColumn {
-	 private String colName;
+	 	private String colName;
 	    private SQLType sqlType;
-	    private boolean isNullable;
+	    private String isNullable;
 
 	    //class constructor
-	    protected DBColumn(final String colName, final SQLType sqlType, final boolean isNullable)
+	    protected DBColumn(final String colName, final SQLType sqlType, final String isNullableBool)
 	    {
 	        this.colName = colName;
 	        this.sqlType = sqlType;
-	        this.isNullable = isNullable;
+	        this.isNullable = isNullableBool;
+	        
 	    }
-	    //basically, i want to create four many type:text, VARCHAR, DATE, INT;
+		//basically, i want to create four many type:text, VARCHAR, DATE, INT;
 	    public enum SQLType {
 	      TEXT,
 	      
@@ -28,8 +29,8 @@ public class DBColumn {
 	      DATE,
 	      TIMESTAMP
 	    }
-
-	    public boolean isIsNullable() {
+	   
+	    public String isNullable() {
 	        return isNullable;
 	    }
 
@@ -41,8 +42,8 @@ public class DBColumn {
 	        return sqlType;
 	    }
 
-	    public void setIsNullable(boolean isNullable) {
-	        this.isNullable = isNullable;
+	    public void setIsNullable(String isNullableBool) {
+	        this.isNullable = isNullableBool;
 	   }
 
 	    public void setName(String colName) {
@@ -52,11 +53,12 @@ public class DBColumn {
 	    public void setSQLType(SQLType sqlType) {
 	        this.sqlType = sqlType;
 	    }
+	    
 
 	    public String toSQL()
 	    {
 	        final StringBuffer sb = new StringBuffer();
-	        sb.append("CREATE TABLE "+this.colName + "(" + this.sqlType+")");
+	        sb.append(this.colName +this.getSQLType()+this.isNullable());
 
 	        return sb.toString();
 	    }

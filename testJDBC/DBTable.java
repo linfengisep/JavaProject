@@ -13,6 +13,16 @@ public class DBTable {
 
     public String toSQL()
     {
-        return "My SQL statements for the table";
+    	final StringBuffer sb = new StringBuffer();
+    	
+        sb.append(this.tableName +"( ");
+        
+        for (DBColumn column : columns)
+        {
+            sb.append(column.toSQL());
+            //table belongs to the instances of DBTables thus, table.toSQL(), calls the BDTable instances' method;
+        }
+        sb.append(");");
+        return sb.toString();
     }
 }

@@ -3,7 +3,7 @@ package jdbcDataBase;
 public class DBColumnString extends DBColumn {
 	protected  int size;
 
-	  protected DBColumnString(final String name, final SQLType SQLType,final boolean isNullable,final int size)
+	  protected DBColumnString(final String name, final SQLType SQLType,final String isNullable,final int size)
 	    {
 	       super(name, SQLType, isNullable);
 	       this.size = size ;
