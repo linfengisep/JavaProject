@@ -7,14 +7,17 @@ import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class DBDemo {
 
-	static String url=null;
-	static String username=null;
-	static String userpassword=null;
+	static String url="jdbc:mysql://localhost:8889/sakila";
+	static String username="root";
+	static String userpassword="root";
 	static StringBuffer sb=new StringBuffer();
+	private static final String DRIVER = "com.mysql.jdbc.Driver";
 	
 	//database metadata info
 	static Connection connection = null;
@@ -22,6 +25,7 @@ public class DBDemo {
 	
 	//iniatilized tables;
 	static ResultSet rs=null;
+	static Set<String> tableNames=new HashSet<String>();
 	
 	public DBDemo(String url,String username,String userpassword){
 		this.url=url;
@@ -29,57 +33,78 @@ public class DBDemo {
 		this.userpassword=userpassword;
 	}
 	
-	static DatabaseMetaData getConnected(){
-		
-		url="jdbc:mysql://localhost:8889/sakila";
-		username="root";
-		userpassword="root";
-		
-	 try {
-            connection = DriverManager.getConnection(url,username,userpassword);
-           } catch (SQLException e) {
-            System.err.println("There was an error getting the connection: "
-                    + e.getMessage());
-           }
-     try {
-            metadata = connection.getMetaData();
-          
-            sb.append("---UserName:"+metadata.getUserName());
-			sb.append(System.getProperty("line.separator"));  
-			sb.append("---ProductName:"+metadata.getDatabaseProductName());
-			sb.append(System.getProperty("line.separator")); 
+	static DatabaseMetaData getConnected() throws ClassNotFoundException{
+			Class.forName(DRIVER);
 			
-         } catch (SQLException e) {
-            System.err.println("There was an error getting the metadata: "
-                    + e.getMessage());
-         }
-		
-		return metadata;
+		 try {
+	            connection = DriverManager.getConnection(url,username,userpassword);
+	           } catch (SQLException e) {
+	            System.err.println("There was an error getting the connection: "
+	                    + e.getMessage());
+	           }
+	     try {
+	            metadata = connection.getMetaData();
+				
+	         } catch (SQLException e) {
+	            System.err.println("There was an error getting the metadata: "
+	                    + e.getMessage());
+	         }
+			
+			return metadata;
+	    }
+	
+	static Connection getConnection(){
+		 try {
+	            connection = DriverManager.getConnection(url,username,userpassword);
+	           } catch (SQLException e) {
+	            System.err.println("There was an error getting the connection: "
+	                    + e.getMessage());
+	           }
+		 return connection;
 	}
 	 
-	public static void main(String[]args) throws SQLException{
-		
-		 //connect
-		getConnected();
-		 //database
-		String database=DBBaseFactory.DBBaseFactory("sakila").toSQL();
-		sb.append(database);
-		sb.append(System.getProperty("line.separator"));
-		
-		 //table:get the table names;
+	 
+	public static void main(String[]args) throws SQLException, ClassNotFoundException{
+    //database
+		DBBase dataBase=DBBaseFactory.DBBaseFactory("sakila");
+       
+	//table:get the table names;
 		rs=getConnected().getTables(null,null,"%",null);
 		while(rs.next()){
-			String tableNames=DBTableFactory.DBTableFactory(rs.getString("TABLE_NAME")).toSQL();
-			sb.append(tableNames);
-
-			sb.append(System.getProperty("line.separator"));
+			//get table name
+			DBTable dbTable=DBTableFactory.DBTableFactory(rs.getString("TABLE_NAME"));
+			dataBase.tables.add(dbTable);
+			tableNames.add(rs.getString("TABLE_NAME"));
+			//System.out.println("check this out"+rs.getString("TABLE_NAME"));
 		}
 		
-		//column:get column infos;
+		for(DBTable table:dataBase.tables){
+		    ResultSet resultSet = getConnected().getColumns(null, null,table.tableName, null);
+		    /*
+		    System.out.println("table:"+table.tableName);
+		    while (resultSet.next()) {
+			      String name = resultSet.getString("COLUMN_NAME");
+			      String type = resultSet.getString("TYPE_NAME");
+			      int size = resultSet.getInt("COLUMN_SIZE");
+			      System.out.println("Column name: [" + name + "]; type: [" + type + "]; size: [" + size + "]");
+			    }
+			*/
+		    while(resultSet.next()){
+		    	DBColumn dbColumn=DBColumnFactory.DBColumnFactory(resultSet);
+				table.columns.add(dbColumn);
+		    }
+		}
 		
-	
 		//test sql script;
+		sb.append("---UserName:"+metadata.getUserName());
+		sb.append(System.getProperty("line.separator"));  
+		sb.append("---ProductName:"+metadata.getDatabaseProductName());
+		sb.append(System.getProperty("line.separator")); 
+		
+		String s=dataBase.toSQL();
+		sb.append(s);
 		System.out.println(sb.toString());
+		
 	    //writing sql to the file;
 		Writer writer = null;
 		try {

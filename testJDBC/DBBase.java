@@ -26,6 +26,7 @@ public class DBBase
     {
         final StringBuffer sb = new StringBuffer();
         sb.append("CREATE DATABASE " + this.dbName);
+        sb.append(System.getProperty("line.separator"));
         for (DBTable table : tables)
         {
             sb.append(table.toSQL());

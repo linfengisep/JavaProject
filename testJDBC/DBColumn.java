@@ -22,6 +22,9 @@ public class DBColumn {
 	      
 	      NUMERIC,
 	      INTEGER,
+	      
+	      SMALLINT,
+	      
 	      FLOAT,
 	      DOUBLE,
 	      REAL,
@@ -29,17 +32,12 @@ public class DBColumn {
 	      DATE,
 	      TIMESTAMP
 	    }
-	   
-	   //init column
-	    public void initColumn(){
-	    	
-	    }
 
 	    public String toSQL()
 	    {
 	        final StringBuffer sb = new StringBuffer();
-	        sb.append(this.colName +sqlType+isNullable);
-
+	        sb.append(this.colName +" "+sqlType+" "+isNullable);
+	        sb.append(System.getProperty("line.separator"));
 	        return sb.toString();
 	    }
 }
