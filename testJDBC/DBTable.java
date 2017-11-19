@@ -15,7 +15,7 @@ public class DBTable {
     {
     	final StringBuffer sb = new StringBuffer();
     	
-        sb.append(this.tableName +"( ");
+        sb.append("CREATE TABLE "+this.tableName +"( ");
         
         for (DBColumn column : columns)
         {

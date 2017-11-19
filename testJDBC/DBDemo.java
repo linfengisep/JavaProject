@@ -2,89 +2,103 @@ package jdbcDataBase;
 import java.nio.file.*;
 import java.io.*;
 import java.sql.*;
-
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class DBDemo {
 
-	private String url=null;
-	private String username=null;
-	private String userpassword=null;
+	static String url=null;
+	static String username=null;
+	static String userpassword=null;
+	static StringBuffer sb=new StringBuffer();
 	
+	//database metadata info
+	static Connection connection = null;
+	static DatabaseMetaData metadata = null;
 	
-	public String getUrl() {
-		return url;
+	//database info
+	static String databaseName=null;
+	static String dataTableName=null;
+	    
+	/*public static ArrayList getTables() throws SQLException{
+		String table[]={"TABLE"};
+		ResultSet rs=null;
+		ArrayList tables=null;
+		rs=metadata.getTables(null, null, null, table);
+		tables=new ArrayList();
+		while(rs.next()){
+			tables.add(rs.getString("TABLE_NAME"));
+		}
+		return tables;
+	}*/
+	/*
+	public static void getColumns(ArrayList tables)throws SQLException{
+		ResultSet rs=null;
+		for(String actualTable:tables){
+			rs=metadata.getColumns(null, null, actualTable, null);
+			System.out.println(actualTable.toUpperCase());
+			while(rs.next()){
+				System.out.println(rs.getString("COLUMN_NAME")+rs.getString("TYPE_NAME")+rs.getString("COLUMN_SIZE"));
+			}
+			System.out.println("\n");
+		}
 	}
-
-
-	public void setUrl(String url) {
-		this.url = url;
-	}
-
-
-	public String getUsername() {
-		return username;
-	}
-
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-
-	public String getUserpassword() {
-		return userpassword;
-	}
-
-
-	public void setUserpassword(String userpassword) {
-		this.userpassword = userpassword;
-	}
-	
-	
-	public static void main(String[]args){
+	*/
+	public static void main(String[]args) throws SQLException{
+		
 		  //get the user account info from the terminal;
-			DBDemo dbDemo = new DBDemo();
-			dbDemo.setUrl(args[0]);
-			dbDemo.setUserpassword(args[1]);
-			dbDemo.setUsername(args[2]);
-		
-		  //generate database informations;
-		try{ 
-			Connection con=DriverManager.getConnection(dbDemo.getUrl(),dbDemo.getUsername(),dbDemo.getUserpassword());  
-			DatabaseMetaData dbmd=con.getMetaData();  
-			  
-			System.out.println("Driver Name: "+dbmd.getDriverName());  
-			System.out.println("Driver Version: "+dbmd.getDriverVersion());  
-			System.out.println("UserName: "+dbmd.getUserName());  
-			System.out.println("Database Product Name: "+dbmd.getDatabaseProductName());  
-			System.out.println("Database Product Version: "+dbmd.getDatabaseProductVersion());  
-			  
-			con.close();  
-			}catch(Exception e){ System.out.println(e);}  
-
-		
-	      //converting a string to the byte array;
-		/*
-	      String s=new String(" SQL statements, create database, create tables.");
-	      byte data[]=s.getBytes();
-	      Path p=Paths.get("/Users/linfengwang/desktop/java/testcode/testJDBC/myFile.txt");
-	      
-	      //Call the class methods and let them generate some scripts in myFile.txt;
-	      */
+			url="jdbc:mysql://localhost:8889/sakila";
+			username="root";
+			userpassword="root";
+			
+		 try {
+	            connection = DriverManager.getConnection(url,username,userpassword);
+	        } catch (SQLException e) {
+	            System.err.println("There was an error getting the connection: "
+	                    + e.getMessage());
+	        }
+	        try {
+	            metadata = connection.getMetaData();
+	          
+	            sb.append("---UserName:"+metadata.getUserName());
+				sb.append(System.getProperty("line.separator"));  
+				sb.append("---ProductName:"+metadata.getDatabaseProductName());
+				sb.append(System.getProperty("line.separator")); 
+				
+	        } catch (SQLException e) {
+	            System.err.println("There was an error getting the metadata: "
+	                    + e.getMessage());
+	        }
+	        
+		        
+		  //get sql script-database
+		String database=DBBaseFactory.DBBaseFactory("sakila").toSQL();
+		sb.append(database);
+		sb.append(System.getProperty("line.separator"));
+		 //get sql script-table
+		String table=DBTableFactory.DBTableFactory("Actor").toSQL();
+		sb.append(table);
+		sb.append(System.getProperty("line.separator"));
+		 //get sql script-column
+		/*ResultSet rs=metadata.getSchemas();
+	    String columns=DBColumnFactory.DBColumnFactory(rs).toSQL();
+		sb.append(columns);
+		*/
+		//test sql script;
+		System.out.println(sb.toString());
+	      //writing sql to the file;
 		Writer writer = null;
-
 		try {
 		    writer = new BufferedWriter(new OutputStreamWriter(
-		          new FileOutputStream("filename.txt"), "utf-8"));
-		    writer.write("write file content here");
+		          new FileOutputStream("src/jdbcDataBase/SQLScriptFile.sql"), "utf-8"));
+		    writer.write(sb.toString());
 		} catch (IOException ex) {
 		  // report
 		} finally {
 		   try {writer.close();} catch (Exception ex) {/*ignore*/}
 		}
-		
-		
-		
-		
    }
 }
