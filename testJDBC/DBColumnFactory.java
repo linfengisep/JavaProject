@@ -19,7 +19,7 @@ public class DBColumnFactory {
         String typeName = columnRS.getString("TYPE_NAME");
         String columnSizeString = columnRS.getString("COLUMN_SIZE");
         int columnSize=Integer.parseInt(columnSizeString);
-        String decimalDigits = columnRS.getString("DECIMAL_DIGITS");//?
+        String decimalDigits = columnRS.getString("DECIMAL_DIGITS");
         String typeNameNumbers = "(" + columnSize + ")";
         
         String isNullable = columnRS.getString("IS_NULLABLE");

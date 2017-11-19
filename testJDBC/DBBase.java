@@ -1,19 +1,27 @@
 package jdbcDataBase;
 
+import java.sql.ResultSet;
 import java.util.LinkedList;
 import java.util.List;
 
 
 public class DBBase
 {
-    private List<DBTable> tables = new LinkedList();
-    private String dbName = null;
+    public List<DBTable> tables = new LinkedList();
+    public String dbName = null;
+    public ResultSet rs=null;
 
-    protected DBBase(final String dbName)
+    
+	protected DBBase(final String dbName)
     {
         this.dbName = dbName;
     }
+	
+	//init Tables
+	public void initTables(){
 
+	}
+	
     public String toSQL()
     {
         final StringBuffer sb = new StringBuffer();

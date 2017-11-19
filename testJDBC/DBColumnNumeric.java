@@ -14,7 +14,7 @@ public class DBColumnNumeric extends DBColumn{
 	   @Override
 	   public String toSQL(){
 	      final StringBuffer sb = new StringBuffer();
-	      sb.append(String.format("%s %s (%s),", this.getName(), this.getSQLType(), this.size));
+	      sb.append(String.format("%s %s (%s),", colName, sqlType, this.size));
 
 	      return sb.toString();
 	   }

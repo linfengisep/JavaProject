@@ -1,9 +1,9 @@
 package jdbcDataBase;
 
 public class DBColumn {
-	 	private String colName;
-	    private SQLType sqlType;
-	    private String isNullable;
+	 	public String colName;
+	    public SQLType sqlType;
+	    public String isNullable;
 
 	    //class constructor
 	    protected DBColumn(final String colName, final SQLType sqlType, final String isNullableBool)
@@ -30,35 +30,15 @@ public class DBColumn {
 	      TIMESTAMP
 	    }
 	   
-	    public String isNullable() {
-	        return isNullable;
+	   //init column
+	    public void initColumn(){
+	    	
 	    }
-
-	    public String getName() {
-	        return colName;
-	    }
-
-	    public SQLType getSQLType() {
-	        return sqlType;
-	    }
-
-	    public void setIsNullable(String isNullableBool) {
-	        this.isNullable = isNullableBool;
-	   }
-
-	    public void setName(String colName) {
-	        this.colName = colName;
-	    }
-
-	    public void setSQLType(SQLType sqlType) {
-	        this.sqlType = sqlType;
-	    }
-	    
 
 	    public String toSQL()
 	    {
 	        final StringBuffer sb = new StringBuffer();
-	        sb.append(this.colName +this.getSQLType()+this.isNullable());
+	        sb.append(this.colName +sqlType+isNullable);
 
 	        return sb.toString();
 	    }

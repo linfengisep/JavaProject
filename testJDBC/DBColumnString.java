@@ -13,7 +13,7 @@ public class DBColumnString extends DBColumn {
 	    public String toSQL()
 	    {
 	        final StringBuffer sb = new StringBuffer();
-	        sb.append(String.format("%s %s (%s)", this.getName(), this.getSQLType(), this.size));
+	        sb.append(String.format("%s %s (%s)",colName, sqlType, this.size));
 	         //try one example: format (first_name,varchar,2000k)
 	        return sb.toString();//then when we call this method, we get the result:actor.first_name string 2000
 	    }

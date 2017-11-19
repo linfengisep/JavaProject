@@ -10,7 +10,12 @@ public class DBTable {
    {
         this.tableName = tableName;
    }
-
+    
+   //init column
+    public void initColumn(){
+    	
+    }
+    
     public String toSQL()
     {
     	final StringBuffer sb = new StringBuffer();
