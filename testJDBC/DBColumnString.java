@@ -1,11 +1,11 @@
 package jdbcDataBase;
 
 public class DBColumnString extends DBColumn {
-	protected  int size;
+	protected  String size;
 
-	  protected DBColumnString(final String name, final SQLType SQLType,final String isNullable,final int size)
+	  protected DBColumnString(final String name, final SQLType SQLType,final String isNullableBool,final String size,String increment)
 	    {
-	       super(name, SQLType, isNullable);
+	       super(name,SQLType,isNullableBool,size,increment);
 	       this.size = size ;
 	    }
 

@@ -89,22 +89,23 @@ public class DBDemo {
 			      System.out.println("Column name: [" + name + "]; type: [" + type + "]; size: [" + size + "]");
 			    }
 			*/
+		    
 		    while(resultSet.next()){
 		    	DBColumn dbColumn=DBColumnFactory.DBColumnFactory(resultSet);
 				table.columns.add(dbColumn);
 		    }
+		    
 		}
 		
-		//test sql script;
+		//output to sql script;
 		sb.append("---UserName:"+metadata.getUserName());
 		sb.append(System.getProperty("line.separator"));  
 		sb.append("---ProductName:"+metadata.getDatabaseProductName());
 		sb.append(System.getProperty("line.separator")); 
-		
 		String s=dataBase.toSQL();
 		sb.append(s);
 		System.out.println(sb.toString());
-		
+
 	    //writing sql to the file;
 		Writer writer = null;
 		try {

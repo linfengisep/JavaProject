@@ -4,17 +4,23 @@ public class DBColumn {
 	 	public String colName;
 	    public SQLType sqlType;
 	    public String isNullable;
+	    public String size;
+	    public String increment;
+	    
 
 	    //class constructor
-	    protected DBColumn(final String colName, final SQLType sqlType, final String isNullableBool)
+	    protected DBColumn(final String colName, final SQLType sqlType, final String isNullableBool,String size,String increment)
 	    {
 	        this.colName = colName;
 	        this.sqlType = sqlType;
 	        this.isNullable = isNullableBool;
+	        this.size=size;
+	        this.increment=increment;
 	        
 	    }
-		//basically, i want to create four many type:text, VARCHAR, DATE, INT;
 	    public enum SQLType {
+	     
+	      BLOB,
 	      TEXT,
 	      
 	      CHAR,
@@ -22,21 +28,28 @@ public class DBColumn {
 	      
 	      NUMERIC,
 	      INTEGER,
-	      
+	      DECIMAL,
+	      MEDIUMINT,
+	      TINYINT,
 	      SMALLINT,
-	      
+	      BIT,
 	      FLOAT,
 	      DOUBLE,
 	      REAL,
-	      
+	      INT,   
 	      DATE,
-	      TIMESTAMP
+	      DATETIME,
+	      YEAR,
+	      TIMESTAMP,
+	      SET,
+	      MEDIUM,
+	      ENUM;
 	    }
 
 	    public String toSQL()
 	    {
 	        final StringBuffer sb = new StringBuffer();
-	        sb.append(this.colName +" "+sqlType+" "+isNullable);
+	        sb.append(this.colName +" "+sqlType+" "+"("+size+")"+isNullable);
 	        sb.append(System.getProperty("line.separator"));
 	        return sb.toString();
 	    }
