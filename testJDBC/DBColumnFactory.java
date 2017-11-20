@@ -9,6 +9,7 @@ public class DBColumnFactory {
 	
     public static DBColumn DBColumnFactory(ResultSet columnRS) throws SQLException
     {
+    	
         String columnName = columnRS.getString("COLUMN_NAME");
         
         String datatype = columnRS.getString("DATA_TYPE");
