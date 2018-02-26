@@ -1,4 +1,4 @@
-public class Dog extends Animal{
+public class Dog{
 
    public int weight=0;
    public String color = null;
@@ -24,8 +24,14 @@ public class Dog extends Animal{
       System.out.println("Moving");
    }
 
+   //test git branch
+   public void sleep(){
+      System.out.println("Dog sleep little at night");
+   }
+
    public static void main(String[]args){
    Dog taddi= new Dog(30);
    taddi.basicSkill();
+   taddi.sleep();
    }
 }
