@@ -9,7 +9,7 @@ public class TestDraw{
           p.setColor(Color.RED);
           c.drawRoundRect(rightButton, corners, corners, p);
           drawText("DELETE", c, rightButton, p);
-          drawCross(c,button,p);
+          drawCross(c);
       }
 
       private void drawText(String text, Canvas c, RectF button, Paint p) {
@@ -19,10 +19,11 @@ public class TestDraw{
           p.setTextSize(textSize);
 
           float textWidth = p.measureText(text);
-          c.drawText(text, button.centerX()-(textWidth/2), button.centerY()+(textSize/2), p);
+          c.drawText(text, button.centerX()-(textWidth/2), button.centerY()-100, p);
       }
 
-      private void drawCross(Canvas canvas,RectF button,Paint crossPaint){
+      private void drawCross(Canvas canvas){
+         Paint crossPaint = new Paint();
          //define the color of the line;
          crossPaint.setColor(Color.WHITE);
          //define the start point and stop point of the line;
