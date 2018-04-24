@@ -1,5 +1,7 @@
 import java.util.*;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.time.*;
 public class TestFormatDate{
    private final static long ONEDAY=24*60*60*1000;
    private final static long ONEWEEK = 7*ONEDAY;
@@ -50,9 +52,19 @@ public class TestFormatDate{
       return days;
    }
 
+   public String milliSecondsToText(long time) {
+      LocalTime localTime = Instant.ofEpochMilli(time).atZone(
+          ZoneId.ofOffset("", ZoneOffset.UTC)
+      ).toLocalTime();
+      DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("hh:mm:ss");
+      return localTime.format(dateTimeFormatter);
+    }
+
    public static void main(String[]args){
+      /*test.prepareData(test.timeSet);
+      test.displayDataSet(test.timeSet);*/
       TestFormatDate test = new TestFormatDate();
-      test.prepareData(test.timeSet);
-      test.displayDataSet(test.timeSet);
+      long time = 7261;
+      System.out.println("format time result:"+test.milliSecondsToText(time));
    }
 }
