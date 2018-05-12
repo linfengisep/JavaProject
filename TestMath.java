@@ -28,6 +28,10 @@ public class TestMath{
       System.out.println("j=12,j%3="+j%3);
       System.out.println("j=12,j/3="+j/3);
 
+      int m = -2;
+      int n = -4;
+      System.out.println("m=-2,n=-4, the smaller is:"+Math.min(m,n));
+
 
    }
 }
