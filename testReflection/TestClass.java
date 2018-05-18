@@ -1,5 +1,7 @@
+import java.lang.reflect.*;
+import java.util.Arrays;
 public class TestClass{
-
+/*
    public void printClassName(Object obj){
       System.out.println(obj.toString()+" java class name is "+ obj.getClass().getName());
    }
@@ -28,9 +30,9 @@ public class TestClass{
       System.out.println("result: "+obj1.toString()+" and "+obj2.toString()+". They are equal? "+(obj1 == obj2));
       //System.out.println(obj1 == obj2);
    }
-
+*/
    public static void main(String[]args){
-      TestClass test = new TestClass();
+   /*   TestClass test = new TestClass();
       Demo demo = new Demo();
       demo.setName("do not call me, i will call you");
 
@@ -51,5 +53,14 @@ public class TestClass{
       System.out.println("result: "+testClass2.getName());
       System.out.println("result: "+testClass3.getName());
       ClassUtil.printClassMethodMessage(test);
+   */
+
+      Class myCar = RentCar.class;
+      try{
+         String carClassName = myCar.getName();
+         System.out.println(carClassName);
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
    }
 }
