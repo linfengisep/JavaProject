@@ -1,13 +1,15 @@
 public class TestModule{
 
-   public static int sub=10;
+   public static int sub=2;
 
-   public static void makeItModule(){
-      for(int i=0;i<=20;i++){
-      System.out.println(i%sub);
+   public static void makeItModule(int value){
+      while(value !=0){
+         value =value / sub;
+         System.out.println(value);
       }
    }
    public static void main(String[]args){
-      makeItModule();
+      int number = 10;
+      makeItModule(number);
    }
 }
