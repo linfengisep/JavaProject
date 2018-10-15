@@ -13,3 +13,12 @@ Thread.interrupted(); do the works.
 if (Thread.interrupted()) {
     throw new InterruptedException();
 }
+
+###4.Synchronization
+wait():make this instance of thread wait();
+notifyAll():wake up the thread in suspended;
+by the way, need add synchronized keyword at the delaration of the method.
+
+
+###5.Anynomous thread declaration
+(new Thread(new classImpelemntRunable())).start();
