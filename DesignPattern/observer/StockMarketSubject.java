@@ -27,7 +27,7 @@ public class StockMarketSubject implements Subject{
 
    public void _notify(){
       for(Observer observer : listObservers){
-         observer.update(stockValue);
+         observer.update(this.stockValue);
       }
    }
 }

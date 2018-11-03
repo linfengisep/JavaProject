@@ -13,7 +13,7 @@ public class AppleStockObserver implements Observer{
    }
 
    public void display(int value){
-      System.out.println("AppleStockObserver,received new value:"+value);
+      System.out.println("AppleStockObserver,notified new value:"+value);
    }
 
    public void unregister(){
