@@ -1,19 +1,21 @@
+import TestSuper.java;
+
 public class TestModule extends TestSuper{
 
-   public static int sub=2;
+   public int sub=2;
 
-   public static void makeItModule(int value){
+   public void makeItModule(int value){
       while(value !=0){
          value =value / sub;
          System.out.println(value);
       }
    }
    public static void main(String[]args){
-      int number = 10;
-      makeItModule(number);
+      TestModule test = new TestModule();
+      test.superMethod();
    }
 
-   @override public static int superMethod(){
+   @override public int superMethod(){
       System.out.println("method implemented from super class");
    }
 }

@@ -3,7 +3,7 @@ public class TestJavaReflect{
    public static Vector getClasssParents(){
 
       Vector cp  = new Vector();
-      Class subClass = TestModule.class;;
+      Class subClass = Student.class;;
       Class superClass;
       cp.add(subClass.getName());
       superClass = subClass.getSuperClass();
@@ -15,32 +15,15 @@ public class TestJavaReflect{
       return cp;
    }
 
-   @override public int superMethod(){
-      System.out.println("method implemented from super class");
-   }
-
    public static void main(String[]args){
    //from the name of class;
        try{
       Class classe = Class.forName("TestModule");
       System.out.println("classe de l'object chaine="+classe.getName());
-
-      System.out.println(getClasssParents().capacity());
       }catch(Exception e){
          e.printStackTrace();
       }
 
-   /*
-      Class c = TestModule.class;
-      System.out.println("class de object:="+c.getName());
-   */
-
-
+      System.out.println(getClasssParents().capacity());
    }
-
-
-/*as long as the class is in the same file, we can use:
-Class.forName();
-ClassName.class();
-*/
 }
