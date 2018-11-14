@@ -23,9 +23,9 @@ public class TestPattern{
       return SceneType.OTHER;
    }
    public static void main(String[] args) {
-      System.out.println(analyseSubtitle("2"));
-      System.out.println(analyseSubtitle("00:16:48,933 --> 00:16:51,419"));
-      System.out.println(analyseSubtitle("je suis vraiment content"));
+      System.out.println(analyseSubtitle("463"));
+      System.out.println(analyseSubtitle("00:17:22,309 --> 00:17:23,416"));
+      System.out.println(analyseSubtitle("Merci."));
    }
 }
 
