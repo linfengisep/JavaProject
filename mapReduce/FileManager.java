@@ -11,7 +11,9 @@ import java.io.IOException;
 
 import java.util.List;
 import java.util.ArrayList;
-
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.function.Function;
 import java.util.function.BiFunction;
 import java.util.stream.Collectors;
@@ -69,19 +71,52 @@ public class FileManager{
          .flatMap(e -> f.apply(e).stream())
          .collect(Collectors.toList());
    }
+   /*
+   Map.getOrDefault:Returns the value to which the specified key is mapped, or defaultValue if this map contains no mapping for the key.
+   */
 
+   public static <K,V> Map<K,List<V>> shuffle (List<DataPair<K,V>> list){
+      Map<K,List<V>> map = new HashMap<>();
+      for(DataPair<K,V> d : list){
+         List<V> l = new ArrayList<>();
+         l = map.getOrDefault(d.key,new ArrayList<>());
+         l.add(d.value);
+         map.put(d.key,l);
+      }
+      return map;
+   }
+/*
+Stream.map():Returns a stream consisting of the results of applying the given function to the elements of this stream.
+*/
+   public static <K,V> List<DataPair<K,V>> reduce(BiFunction<V,V,V> bf, V begin, Map<K,List<V>> data){
+      return data.entrySet().parallelStream()
+            .map(e->{
+                V res = begin;
+                for(V i : e.getValue()){
+                  res = bf.apply(i,res);
+                }
+               return new DataPair<>(e.getKey(),res);
+               }).collect(Collectors.toList());
+   }
+   public static void printMap(Map map){
+      Iterator it = map.entrySet().iterator();
+      while(it.hasNext()){
+         Map.Entry pair = (Map.Entry) it.next();
+         System.out.println(pair.getKey() + " = " + pair.getValue());
+         it.remove();
+      }
+   }
    public static void main(String[] args) {
       String myFilePath = "/Users/linfengwang/desktop/test.txt";
 
       List<DataPair<String,Integer>> result = new ArrayList<>();
       List<String> fileData = new ArrayList<>();
       readFile(myFilePath,fileData);
-      //for(String s:fileData){System.out.println(s);}
-      List<DataPair<String,Integer>> r = map(mapper,fileData);
-      for(DataPair d:r){
-         System.out.println("key:"+d.key+",and value:"+d.value);
+      List<DataPair<String,Integer>> listDataPair = map(mapper,fileData);
+      //printMap(shuffle(listDataPair));
+      Map<String,List<Integer>> shuffed = shuffle(listDataPair);
+      for(DataPair<String,Integer> d:reduce(reducer,0,shuffed)){
+         System.out.println("key:"+d.key+",value:"+d.value);
       }
-
-
    }
 }
