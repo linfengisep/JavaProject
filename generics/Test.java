@@ -1,6 +1,8 @@
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Iterator;
 
 public class Test{
    //upper bounded wildcard;
@@ -26,6 +28,17 @@ public class Test{
       }
    }
 
+   public static int countNumber(Collection<? extends Number> myCollections ){
+      Iterator it = myCollections.iterator();
+      int total = 0;
+      while(it.hasNext()){
+         total++;
+         System.out.println(it.next());
+         it.remove();
+      }
+      return total;
+   }
+
    public static void main(String[] args) {
       List myList = new ArrayList();
       myList.add("hello");
@@ -48,5 +61,13 @@ public class Test{
       List<Object> objectList = new ArrayList<>();
       addNumbers(objectList);
       printList(objectList);
+
+      List<Integer> intList = new ArrayList<>();
+      intList.add(3);
+      intList.add(5);
+      intList.add(2);
+      intList.add(4);
+      intList.add(6);
+      System.out.println("total number:"+countNumber(intList));
    }
 }
