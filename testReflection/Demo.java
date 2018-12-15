@@ -1,27 +1,27 @@
+import java.lang.Class;
+
 public class Demo{
-   public String demoName;
-   public boolean isShow = false;
-
-   public void setName (String name){
-   this.demoName = name;
-   }
-
-   public void selfPresentation(){
-   System.out.println("the name is: "+this.demoName);
-   }
-
-   public void setShow(boolean isShow){
-   this.isShow = isShow;
-   }
-
-   public void checkShow(){
-      if(this.isShow){
-         System.out.println("show off");
+   public static void main(String[] args) {
+      RentCar myCar = new RentCar(20);
+      Class c = myCar.getClass();
+      System.out.println(c);
+      System.out.println("/************/");
+      byte[] bytes = new byte[1024];
+      Class b = bytes.getClass();
+      System.out.println(b);
+      System.out.println("/************/");
+      boolean booValue;
+      Class boo = boolean.class;
+      System.out.println(boo);
+      System.out.println("/************/");
+      try{
+      Class nameMethod = Class.forName("RentCar");
+         System.out.println(nameMethod);
+      }catch(ClassNotFoundException e){
+         System.out.println("exception:"+e);
       }
-   }
-
-   public void getPrivateField(){
-      int bitCoinNumber = 10;
-      System.out.println("show bitCoinNumber:"+bitCoinNumber);
+      System.out.println("/************/");
+      Class voidd = Void.TYPE;
+      System.out.println(voidd);
    }
 }

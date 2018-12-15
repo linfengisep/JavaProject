@@ -1,10 +1,18 @@
-java n'est pas une langage de programmation dynamique, mais, elle a un charactère très typique, la réflection.
+source:https://docs.oracle.com/javase/tutorial/reflect/class/classNew.html
+import java.lang.Class;
+import java.lang.reflect;
 
-s'il n'y a pas de réflection, il n'aurait pas de framework.
 
-voici la définition de la Réflection(informatique) de Wikipédia
-En programmation informatique, la réflexion est la capacité d'un programme à examiner,
-et éventuellement à modifier, ses propres structures internes de haut niveau lors de son exécution.
 
-Tout d'abord, il faudrait connaître un class très discret de java:Class
-Tout les mot clé et les variables primitive sont sont représenté par object de Class, void y compris.
+1. Retrieving the class objects
+1.1 by instance of object.getClass();
+1.2 for primitive type, using type.class;
+1.3 for primitive type, using their wrapper class;
+1.4 not for primitive type, using static method Class.forName();
+need add try{}catch{} block;
+
+2.class modifiers and type
+
+3.Member
+Member is an interface that reflects identifying information about a single member
+(a field or a method) or a constructor.
