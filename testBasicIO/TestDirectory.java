@@ -12,34 +12,25 @@ import java.nio.file.DirectoryIteratorException;
 import static java.nio.file.FileVisitResult.*;
 
 public class TestDirectory extends SimpleFileVisitor<Path>{
-      private final int indentionAmount = 2;
-      private int indentionLevel = 2;
-
-      private void indent() {
-         for (int i = 0; i < indentionLevel; i++) {
-            System.out.print(' ');
-         }
-      }
       @Override
       public FileVisitResult visitFile(Path file,BasicFileAttributes attr){
-         indent();
-         System.out.format("visiting file: %s %n",file.getFileName());
+         Path target = Paths.get("/Users/linfengwang/Desktop/Java/JavaProject/testBasicIO/test/sample.txt");
+         if (file.compareTo(target) == 0) {
+            System.out.println("Located file: " + target);
+            return TERMINATE;
+         }
          return CONTINUE;
       }
 
       @Override
       public FileVisitResult postVisitDirectory(Path dir,IOException exc) {
-         indentionLevel += indentionAmount;
-         indent();
          System.out.format("Dir finished: %s%n", dir);
          return CONTINUE;
       }
 
       @Override
       public FileVisitResult visitFileFailed(Path file,IOException exc) {
-         indent();
          System.out.println("failed: "+ file.getFileName());
-            indentionLevel += indentionAmount;
          return CONTINUE;
       }
 
