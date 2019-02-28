@@ -4,8 +4,8 @@ public class GreatWall implements Surfing{
     public void surfingOnInternet(String site){
         System.out.format("i want to surf the website: %s\n",site);
         if(filter == null){
-            filter = new Filter(site);
-            //filter.surfingOnInternet(site);
+            filter = new Filter();
         }
+        filter.surfingOnInternet(site);
     }
 }
