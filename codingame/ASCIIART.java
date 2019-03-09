@@ -46,7 +46,6 @@ class ASCIIART {
                 artOutput=String.format("%s%s",artOutput,getArtString(c,L,ROW));
             }
             System.out.println(artOutput);
-
         }
     }
 }
