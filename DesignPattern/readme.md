@@ -36,6 +36,8 @@ observer share the same subject instance during their construction.
 ## Structural Pattern
 1.Proxy Pattern
 a class function as an interface to something else
-----------------------------
-surfing Interface, the action, proxy: the great wall
-real
+problem to solve: when pageNotBlock, did't call the right method???
+
+2.Decorator Pattern
+attach additional responsibility to an object dynamically keeping the same Interface
+`extending function`
