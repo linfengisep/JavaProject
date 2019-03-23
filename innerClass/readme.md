@@ -1,15 +1,18 @@
 ## **************************Nested class**********************************
-
+static class inside outer class;
 ## **************************Inner class***********************************
-
+non static class,outside method body, as memember of the class;
 ## **************************Local class***********************************
-
+class inside the method body
 ## **************************Anonymous class*******************************
-
+new Interface(){
+    implementation of the method defined in the Interface;
+}
+in this way,don't need implement interface and instantiate the implemented class.
 ## **************************Lambda expression*****************************
 'Purpose:'
 1.To treat functionality as method argument, or code as data.
-2.when anonymous class only have one method, we can use lambda expression instead.
+2.we can consider lambda expression as anonymous methods-- methods without name.
 
 'Syntax'
 a. A comma-separated list of formal parameter enclosed in parentheses.
@@ -38,3 +41,11 @@ aValue++;
 System.out.println("Hello World!");
 // object creation statement
 Bicycle myBike = new Bicycle();
+
+
+## **************************Method reference*****************************
+        Kind	                   Example
+Reference to static method	ClassName::staticMethodName
+Reference to a constructor	ClassName::new
+Reference to an instance of a particular type	classInstance::methodName
+Reference to an arbitrary object of a particular type	ClassType::methodName(suitable for  java.util*)
