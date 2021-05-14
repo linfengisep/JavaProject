@@ -25,9 +25,45 @@ some superficial similarities, have different goals. **Collections are primarily
 > PS: Collection: access to element. While, Stream focus on pipeline operations.
 
 #### how to use stream
-1 creation
-of()
+creation,
+intermediate operation,
+terminal operation;
+
+check the example Java8.java for detail: first: javac SOperations.java SCreations.java Java8.java
+second: java Java8
+
+notes: stream should be operated once, if not, an exception will be throwed, using Supplier.get() to create the same stream repeatedly;
+
+### 2 Optional
+get(), a method with little value. when it is an empty optional, it needs to call isPresent() first, if true, call the get(), totally betray the goal of creation of Optional class.
+so use orElse() instead.
+
+### 3 Method reference
+only exist inside lambda expression? yep;
+#### 3.1 Class static reference
+#### 3.2 Instance method
+#### 3.3 Object method
+#### 3.4 to constructor
+
+### 4 Expression lambda
+but: **passer en paramètre un ensemble de traitements**.
+
+function anonyme,closure.
+
+syntaxe: (arguments) -> corps
+
+### 5 Functional interface
+définition et l'association avec l'expression lambda:
+>Une expression lambda permet d'encapsuler un traitement pour être passé à d'autres traitements. C'est un raccourci syntaxique aux classes anonymes internes pour une interface qui ne possède qu'une seule méthode abstraite. Ce type d'interface est nommé interface fonctionnelle.
+
+
+
+[Ref java 8 new features](https://www.baeldung.com/java-8-new-features)
 
 [Ref streams examples](https://www.baeldung.com/java-8-streams-introduction)
+
 [Ref streams javadoc](https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html)
+
 [Ref streams package summary](https://docs.oracle.com/javase/8/docs/api/java/util/stream/package-summary.html#NonInterference)
+
+[Ref functional interface](https://www.jmdoudoux.fr/java/dej/chap-lambdas.htm)
